@@ -1,0 +1,128 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mascots",
+  "info": {
+    "singularName": "mascot",
+    "pluralName": "mascots",
+    "displayName": "Mascot"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "state": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "enum": [
+        "smile",
+        "cry",
+        "sleep",
+        "run",
+        "excecies",
+        "eat",
+        "skincare"
+      ]
+    },
+    "gifFile": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "thumbnail": {
+      "type": "media",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "size": {
+      "type": "enumeration",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": "card",
+      "enum": [
+        "hero",
+        "card",
+        "icon",
+        "badge"
+      ]
+    },
+    "animationDuration": {
+      "type": "decimal",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "default": 3,
+      "min": 0.1,
+      "max": 10
+    },
+    "defaultDialogue": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "maxLength": 200
+    },
+    "contexts": {
+      "type": "json",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "active": {
+      "type": "boolean",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true,
+      "default": true
+    },
+    "mascot_dialogues": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::mascot-dialogue.mascot-dialogue",
+      "mappedBy": "mascotState"
+    }
+  }
+}

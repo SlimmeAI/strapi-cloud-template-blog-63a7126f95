@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "media_assets",
+  "info": {
+    "singularName": "media-asset",
+    "pluralName": "media-assets",
+    "displayName": "Media Asset"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "category": {
+      "type": "enumeration",
+      "required": true,
+      "default": "logo",
+      "enum": [
+        "logo",
+        "icon",
+        "splash",
+        "banner",
+        "advertisement"
+      ]
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "required": true,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "fileDark": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "platforms": {
+      "type": "enumeration",
+      "enum": [
+        "ios",
+        "android",
+        "web"
+      ]
+    },
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    }
+  }
+}

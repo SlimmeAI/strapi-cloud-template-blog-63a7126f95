@@ -1,0 +1,66 @@
+{
+  "kind": "collectionType",
+  "collectionName": "mascot_dialogues",
+  "info": {
+    "singularName": "mascot-dialogue",
+    "pluralName": "mascot-dialogues",
+    "displayName": "Mascot Dialogue"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "mascotState": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::mascot.mascot",
+      "inversedBy": "mascot_dialogues"
+    },
+    "context": {
+      "type": "enumeration",
+      "required": true,
+      "default": "default",
+      "enum": [
+        "default",
+        "achievement",
+        "streak",
+        "reminder",
+        "error",
+        "onboarding"
+      ]
+    },
+    "message": {
+      "type": "text",
+      "maxLength": 500,
+      "required": true
+    },
+    "language": {
+      "type": "enumeration",
+      "required": true,
+      "default": "en",
+      "enum": [
+        "en",
+        "vi",
+        "fr"
+      ]
+    },
+    "priority": {
+      "type": "integer",
+      "default": 0,
+      "min": 0,
+      "max": 100
+    },
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "startDate": {
+      "type": "datetime"
+    },
+    "endDate": {
+      "type": "datetime"
+    }
+  }
+}
