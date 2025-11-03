@@ -625,7 +625,6 @@ export interface ApiCampaignCampaign extends Struct.CollectionTypeSchema {
     >;
     name: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
@@ -1070,7 +1069,6 @@ export interface ApiMessageMessage extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     key: Schema.Attribute.String &
       Schema.Attribute.Required &
-      Schema.Attribute.Unique &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
           localized: true;
