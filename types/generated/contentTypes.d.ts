@@ -459,7 +459,7 @@ export interface ApiAboutAbout extends Struct.SingleTypeSchema {
   };
 }
 
-export interface ApiAppSettingAppSetting extends Struct.CollectionTypeSchema {
+export interface ApiAppSettingAppSetting extends Struct.SingleTypeSchema {
   collectionName: 'app_settings';
   info: {
     displayName: 'App Setting';
