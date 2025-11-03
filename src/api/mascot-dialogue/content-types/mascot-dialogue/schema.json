@@ -49,21 +49,6 @@
       "maxLength": 500,
       "required": true
     },
-    "language": {
-      "type": "enumeration",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "required": true,
-      "default": "en",
-      "enum": [
-        "en",
-        "vi",
-        "fr"
-      ]
-    },
     "priority": {
       "type": "integer",
       "pluginOptions": {
