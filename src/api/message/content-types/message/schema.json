@@ -32,24 +32,8 @@
           "localized": true
         }
       },
-      "maxLength": 100,
+      "maxLength": 200,
       "required": true
-    },
-    "screen": {
-      "type": "enumeration",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "default": "home",
-      "enum": [
-        "home",
-        "camera",
-        "journey",
-        "profile",
-        "settings"
-      ]
     },
     "type": {
       "type": "enumeration",
@@ -76,6 +60,15 @@
       },
       "required": true,
       "default": true
+    },
+    "screen": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": false
     }
   }
 }
