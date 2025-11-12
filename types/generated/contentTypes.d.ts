@@ -866,7 +866,7 @@ export interface ApiMediaAssetMediaAsset extends Struct.CollectionTypeSchema {
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<true>;
     category: Schema.Attribute.Enumeration<
-      ['logo', 'icon', 'splash', 'banner', 'advertisement']
+      ['logo', 'icon', 'splash', 'banner', 'advertisement', 'media']
     > &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'logo'>;
