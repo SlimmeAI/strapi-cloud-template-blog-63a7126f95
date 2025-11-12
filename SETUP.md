@@ -6,7 +6,8 @@ This guide covers the setup, database restore from .dump files, and backup proce
 
 1. [Initial Setup](#initial-setup)
 2. [Database Restore from .dump File](#database-restore-from-dump-file)
-3. [Backup Procedures](#backup-procedures)
+3. [Production Deployment](#production-deployment)
+4. [Backup Procedures](#backup-procedures)
 
 ## Initial Setup
 
@@ -218,6 +219,126 @@ docker exec strapi-postgres pg_restore -U strapi -d strapi /tmp/restore.dump
 ```
 
 Note: This may fail if objects already exist. Use `-c` flag for a clean restore.
+
+## Production Deployment
+
+### Overview
+
+This section covers deploying Strapi to production using Docker Compose with optimized settings for production environments.
+
+### Prerequisites
+
+- Docker and Docker Compose installed
+- Production environment variables configured
+- Database backup ready (if restoring from backup)
+
+### Production Setup Steps
+
+1. **Create production environment file:**
+   ```bash
+   cp env.prod.example .env.prod
+   ```
+
+2. **Edit `.env.prod` with your production values:**
+   - Set secure passwords for PostgreSQL
+   - Generate secure random strings for all security keys:
+     - `APP_KEYS` (comma-separated, at least 4 keys)
+     - `ADMIN_JWT_SECRET`
+     - `API_TOKEN_SALT`
+     - `TRANSFER_TOKEN_SALT`
+     - `JWT_SECRET`
+   
+   **Generate secure keys:**
+   ```bash
+   # Generate random strings (run multiple times for APP_KEYS)
+   openssl rand -base64 32
+   ```
+
+3. **Build and start production services:**
+   ```bash
+   docker-compose -f docker-compose.prod.yml up -d --build
+   ```
+
+4. **Restore database (if needed):**
+   ```bash
+   bash scripts/restore-postgres.sh ./backups/your-backup.dump --container strapi-postgres-prod
+   ```
+
+5. **Check service status:**
+   ```bash
+   docker-compose -f docker-compose.prod.yml ps
+   docker-compose -f docker-compose.prod.yml logs -f strapi
+   ```
+
+### Production Configuration
+
+The production setup includes:
+
+- **Optimized Dockerfile**: Uses `npm ci --only=production` and builds with `NODE_ENV=production`
+- **Health checks**: Both PostgreSQL and Strapi have health checks configured
+- **Separate networks and volumes**: Isolated from development environment
+- **No source code volumes**: Production runs from built image, not mounted volumes
+- **Persistent uploads**: Only upload directories are mounted as volumes
+
+### Production Commands
+
+**Start services:**
+```bash
+docker-compose -f docker-compose.prod.yml up -d
+```
+
+**Stop services:**
+```bash
+docker-compose -f docker-compose.prod.yml down
+```
+
+**View logs:**
+```bash
+docker-compose -f docker-compose.prod.yml logs -f
+```
+
+**Rebuild and restart:**
+```bash
+docker-compose -f docker-compose.prod.yml up -d --build
+```
+
+**Backup database:**
+```bash
+bash scripts/backup-postgres.sh --container strapi-postgres-prod --output ./backups
+```
+
+### Production Features
+
+- **NODE_ENV=production**: Optimized for production performance
+- **Health checks**: Automatic container health monitoring
+- **Service dependencies**: Strapi waits for PostgreSQL to be healthy
+- **Separate volumes**: `postgres_data_prod` for production data isolation
+- **Environment variables**: All sensitive data via `.env.prod` file
+
+### Security Considerations
+
+1. **Never commit `.env.prod`** to version control
+2. **Use strong passwords** for PostgreSQL
+3. **Generate secure random strings** for all security keys
+4. **Enable SSL** for database connections in production (`DATABASE_SSL=true`)
+5. **Use reverse proxy** (nginx/traefik) for HTTPS termination
+6. **Limit port exposure** - consider removing port mappings and using internal networking only
+
+### Troubleshooting
+
+**Issue: "Build fails"**
+- Solution: Ensure all dependencies are in `package.json`, not `devDependencies`
+
+**Issue: "Container exits immediately"**
+- Solution: Check logs: `docker-compose -f docker-compose.prod.yml logs strapi`
+- Verify environment variables are set correctly
+
+**Issue: "Database connection fails"**
+- Solution: Verify PostgreSQL is healthy: `docker-compose -f docker-compose.prod.yml ps`
+- Check database credentials in `.env.prod`
+
+**Issue: "Health check fails"**
+- Solution: Strapi may need more time to start. Increase `start_period` in healthcheck
 
 ## Backup Procedures
 
