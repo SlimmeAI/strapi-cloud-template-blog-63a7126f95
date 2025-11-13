@@ -1,0 +1,23 @@
+trigger:
+  branches:
+    include:
+    - main
+
+resources:
+- repo: self
+
+pool:
+  name: gcp-slimme
+
+variables:
+  - group: slimme-strapi-prod
+
+steps:
+- task: DockerCompose@1
+  inputs:
+    containerregistrytype: 'Container Registry'
+    dockerComposeFile: './docker-compose.prod.yml'
+    action: 'Run services'
+    # dockerComposeFileArgs: |
+    #   GEMINI_API_KEY=$(GEMINI_API_KEY)
+
