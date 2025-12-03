@@ -32,7 +32,7 @@
           "localized": true
         }
       },
-      "maxLength": 200,
+      "maxLength": 400,
       "required": true
     },
     "type": {

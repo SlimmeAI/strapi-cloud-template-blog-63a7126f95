@@ -1164,7 +1164,7 @@ export interface ApiMessageMessage extends Struct.CollectionTypeSchema {
         };
       }> &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 200;
+        maxLength: 400;
       }>;
     publishedAt: Schema.Attribute.DateTime;
     screen: Schema.Attribute.String &
