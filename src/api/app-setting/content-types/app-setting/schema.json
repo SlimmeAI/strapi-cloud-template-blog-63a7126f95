@@ -21,6 +21,12 @@
       "default": "1.0.0",
       "required": true
     },
+    "androidlink": {
+      "type": "string"
+    },
+    "ioslink": {
+      "type": "string"
+    },
     "maintenanceMode": {
       "type": "boolean",
       "required": true,

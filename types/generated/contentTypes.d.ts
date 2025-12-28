@@ -470,6 +470,7 @@ export interface ApiAppSettingAppSetting extends Struct.SingleTypeSchema {
     draftAndPublish: true;
   };
   attributes: {
+    androidlink: Schema.Attribute.String;
     appVersion: Schema.Attribute.String &
       Schema.Attribute.Required &
       Schema.Attribute.DefaultTo<'1.0.0'>;
@@ -478,6 +479,7 @@ export interface ApiAppSettingAppSetting extends Struct.SingleTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     featureFlags: Schema.Attribute.JSON;
+    ioslink: Schema.Attribute.String;
     links: Schema.Attribute.JSON;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
